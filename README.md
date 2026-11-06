@@ -71,4 +71,167 @@ tcp.flags.syn == 1
 
 ### Screenshots
 
-![
+![Lab 02.1](./Lab%2002.1.png)
+
+![Lab 02.2](./Lab%2002.2.png)
+
+---
+
+## Lab 03 – HTTP Stream Analysis and Hidden Information Detection
+
+### Objective
+Inspect HTTP traffic to identify hidden information and understand how data can be retrieved from network streams.
+
+### Tasks Performed
+- Analysed HTTP requests and responses.
+- Examined website traffic and page contents.
+- Used **Follow TCP Stream** to inspect communication.
+- Identified information contained in an HTML comment.
+- Examined server-to-client communication.
+- Analysed an HTTP response and file download.
+
+### Key Findings
+- Hidden information was identified within an HTML comment.
+- Server-to-client communication contained additional information.
+- HTTP response status code 200 indicated a successful request.
+
+### Wireshark Filters
+```text
+http
+http.request.method == "GET"
+http.request.uri contains "download"
+```
+
+### Screenshots
+
+![Lab 03.1](./Lab%2003.1.png)
+
+![Lab 03.2](./Lab%2003.2.png)
+
+---
+
+## Lab 04 – HTTP Authentication and Credential Exposure
+
+### Objective
+Investigate HTTP login traffic and understand the security risks of transmitting authentication information without encryption.
+
+### Tasks Performed
+- Identified HTTP login requests.
+- Examined POST request methods.
+- Inspected form-submission data.
+- Analysed multiple login attempts.
+- Identified exposed authentication information.
+- Recommended HTTPS to protect login credentials.
+
+### Key Findings
+- Login information was transmitted over unencrypted HTTP.
+- Authentication data could be inspected through packet analysis.
+- HTTPS is recommended to protect credentials during transmission.
+
+### Wireshark Filters
+```text
+http
+http.request.method == "POST"
+```
+
+### Screenshots
+
+![Lab 04.1](./Lab%2004.1.png)
+
+![Lab 04.2](./Lab%2004.2.png)
+
+---
+
+## Lab 05 – FTP Brute-Force Attack Detection
+
+### Objective
+Analyse FTP traffic to identify repeated login attempts and detect potential brute-force activity.
+
+### Tasks Performed
+- Identified FTP communication.
+- Examined USER and PASS commands.
+- Analysed repeated authentication attempts.
+- Investigated FTP response codes.
+- Identified failed and successful login responses.
+- Classified the activity as a potential brute-force attack.
+
+### Key Findings
+- 24 failed login attempts were identified.
+- FTP response code 530 indicated failed authentication.
+- FTP response code 230 indicated successful authentication.
+- The traffic pattern was consistent with brute-force activity.
+
+### Wireshark Filters
+```text
+ftp
+ftp.request.command == "USER"
+ftp.request.command == "PASS"
+ftp.response.code >= 500
+ftp.response.code == 530
+ftp.response.code == 230
+```
+
+### Screenshots
+
+![Lab 05.1](./Lab%2005.1.png)
+
+![Lab 05.2](./Lab%2005.2.png)
+
+---
+
+## Lab 06 – VoIP Traffic Analysis and Call Reconstruction
+
+### Objective
+Analyse Voice over IP (VoIP) traffic to understand call signalling, voice transmission, and potential information exposure.
+
+### Tasks Performed
+- Identified SIP signalling traffic.
+- Examined call establishment messages.
+- Analysed RTP voice traffic.
+- Identified the audio codec used.
+- Used Wireshark's Telephony features to inspect and reconstruct audio.
+- Identified the security risks of transmitting voice communication without encryption.
+
+### Key Findings
+- SIP was used for call signalling.
+- RTP was used to transport voice data.
+- The G.711 PCMU codec was identified.
+- Voice communication could be reconstructed from captured RTP traffic.
+- Secure RTP (SRTP) is recommended to protect voice data.
+
+### Wireshark Filters
+```text
+sip
+rtp
+sip.Method == "INVITE"
+```
+
+### Screenshots
+
+![Lab 06.1](./Lab%2006.1.png)
+
+![Lab 06.2](./Lab%2006.2.png)
+
+---
+
+## Skills Developed
+
+- Network Traffic Analysis
+- Packet Capture and Inspection
+- TCP/IP Protocol Analysis
+- TCP SYN Port Scan Detection
+- HTTP Traffic Inspection
+- TCP Stream Reconstruction
+- Authentication and Credential Exposure Analysis
+- FTP Brute-Force Detection
+- SIP and RTP Traffic Analysis
+- Wireshark Display Filters
+- Basic SOC Investigation and Threat Identification
+
+## Conclusion
+
+These practical labs provided hands-on experience in analysing network traffic and identifying suspicious activities using Wireshark. They strengthened my understanding of network protocols, common attack techniques, security weaknesses, and the importance of encrypted communication.
+
+## Privacy and Security
+
+Screenshots and documentation are intended for educational and portfolio purposes. Sensitive information, including credentials, personal details, internal network addresses, and other confidential data, has been excluded or redacted before publication.
